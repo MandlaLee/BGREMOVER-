@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clean BG Remover</title>
+  <meta name="description" content="A simple browser-based background remover that exports transparent PNG images." />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://staticimgly.com" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero-section">
+      <div class="hero-copy">
+        <p class="eyebrow">Browser tool</p>
+        <h1>Clean Background Remover</h1>
+        <p class="hero-text">
+          Upload an image, remove the background in your browser, preview it on a checkerboard, then download a transparent PNG.
+        </p>
+      </div>
+
+      <div class="hero-card">
+        <div class="privacy-dot"></div>
+        <div>
+          <strong>No backend upload needed.</strong>
+          <span>Your image is processed locally in the browser. The model files load from CDN on first run.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-card" aria-label="Background remover tool">
+      <div class="drop-zone" id="dropZone">
+        <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp,image/jpg" />
+        <div class="drop-zone-content">
+          <span class="upload-icon">+</span>
+          <h2>Drop your image here</h2>
+          <p>or click to choose a PNG, JPG, JPEG, or WEBP image</p>
+        </div>
+      </div>
+
+      <div class="controls-grid">
+        <label class="control-box" for="maxSide">
+          <span>Processing size</span>
+          <select id="maxSide">
+            <option value="1024">Fast - 1024px max side</option>
+            <option value="1536" selected>Balanced - 1536px max side</option>
+            <option value="2048">High - 2048px max side</option>
+            <option value="3072">Very high - 3072px max side</option>
+          </select>
+        </label>
+
+        <label class="control-box" for="edgeClean">
+          <span>Edge clean-up</span>
+          <select id="edgeClean">
+            <option value="0">Off</option>
+            <option value="8" selected>Light</option>
+            <option value="18">Medium</option>
+            <option value="32">Strong</option>
+          </select>
+        </label>
+
+        <label class="control-box" for="previewBg">
+          <span>Preview background</span>
+          <select id="previewBg">
+            <option value="checker" selected>Checkerboard</option>
+            <option value="white">White</option>
+            <option value="black">Black</option>
+            <option value="green">Green screen</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="button-row">
+        <button id="removeBtn" class="primary-btn" type="button" disabled>Remove Background</button>
+        <button id="clearBtn" class="secondary-btn" type="button">Clear</button>
+        <a id="downloadBtn" class="download-btn disabled" href="#" download="background-removed.png">Download PNG</a>
+      </div>
+
+      <div class="status-wrap">
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <p id="statusText">Choose an image to begin.</p>
+      </div>
+
+      <section class="preview-grid" aria-label="Image preview area">
+        <article class="preview-panel">
+          <div class="panel-header">
+            <h3>Original</h3>
+            <span id="originalMeta">No image selected</span>
+          </div>
+          <div class="image-stage plain-stage">
+            <img id="originalPreview" alt="Original preview" />
+          </div>
+        </article>
+
+        <article class="preview-panel">
+          <div class="panel-header">
+            <h3>Transparent PNG</h3>
+            <span id="resultMeta">Waiting</span>
+          </div>
+          <div class="image-stage checker-stage" id="resultStage">
+            <img id="resultPreview" alt="Background removed preview" />
+          </div>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
